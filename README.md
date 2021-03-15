@@ -36,7 +36,7 @@ Aplikace využívá PHP framework [Laravel](https://laravel.com/docs/8.x/), [Boo
 
 
 ### Deployment
-Deployment by měl více 
+Deploy do služby Heroku a pak už jen profitovat z výsledku 🎉🎉
 #### Jedna aplikace
 1. Vytvořit fork pro Váš běh digitální akademie
 1. Vytvořit účet na herokuapp.com
