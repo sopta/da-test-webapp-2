@@ -1,0 +1,28 @@
+@import 'custom_settings';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+@import '~datatables.net-bs4';
+@import '~datatables.net-fixedheader-bs4';
+@import '~datatables.net-responsive-bs4';
+
+div.dataTables_wrapper { // stylelint-disable-line selector-class-pattern
+    .btn {
+        white-space: nowrap;
+    }
+
+    div.dataTables_paginate { // stylelint-disable-line selector-class-pattern
+        ul.pagination {
+            justify-content: center;
+        }
+
+        .paginate_button {
+            &.previous, &.next {
+                @include media-breakpoint-down(sm) {
+                    display: none;
+                }
+            }
+        }
+    }
+}

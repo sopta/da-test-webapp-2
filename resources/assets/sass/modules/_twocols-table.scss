@@ -1,0 +1,49 @@
+.table-twocols {
+    tr {
+        td {
+            display: block;
+
+            &:first-child {
+                font-weight: bold;
+                padding-bottom: 0;
+            }
+
+            @include media-breakpoint-down(sm) {
+                &:last-child {
+                    border: 0;
+                    padding-top: 0;
+                }
+            }
+
+            @include media-breakpoint-up(md) {
+                display: table-cell;
+
+                &:first-child {
+                    padding: $table-cell-padding;
+                    text-align: right;
+                    width: 40%;
+                }
+            }
+
+            &[colspan='2'] {
+                padding: $table-cell-padding;
+            }
+
+            input[name] {
+                max-width: 400px;
+            }
+        }
+    }
+
+    &.real-middle {
+        tr {
+            td {
+                @include media-breakpoint-up(md) {
+                    &:first-child {
+                        width: 50%;
+                    }
+                }
+            }
+        }
+    }
+}

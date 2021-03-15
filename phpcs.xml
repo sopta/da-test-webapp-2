@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Czechitas App Custom Ruleset">
+
+    <!-- Check folders -->
+    <file>./app</file>
+    <file>./config</file>
+    <file>./routes</file>
+
+    <config name="ignore_warnings_on_exit" value="1"/>
+
+    <exclude-pattern>./app/Modules/Parsedown</exclude-pattern>
+
+    <arg name="basepath" value="."/> <!-- Strip file basepath from report -->
+    <arg name="colors"/>
+    <arg value="p"/><!-- Display progress in report -->
+    <arg value="s"/><!-- Display sniff codes in report -->
+
+    <rule ref="./vendor/arxeiss/coding-standards/Rules/phpcs-spaces.xml">
+        <!-- trailing comma in function call is supported in PHP 7.3 and above, exclude if needed -->
+        <exclude name="SlevomatCodingStandard.Functions.TrailingCommaInCall"/>
+    </rule>
+
+    <!-- Add set of strict rules if needed -->
+    <rule ref="./vendor/arxeiss/coding-standards/Rules/phpcs-strict.xml">
+        <exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar"/>
+        <exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>
+        <!-- Supported in PHP 7.4+, ignore for now -->
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint"/>
+    </rule>
+
+    <rule ref="Generic.CodeAnalysis.EmptyStatement">
+        <type>warning</type>
+    </rule>
+    <rule ref="Squiz.PHP.CommentedOutCode.Found">
+        <exclude-pattern>./config</exclude-pattern>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation">
+        <severity>5</severity>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.UselessAnnotation">
+        <severity>5</severity>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation">
+        <severity>5</severity>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
+        <properties>
+            <property name="rootNamespaces" type="array">
+                <element key="app" value="CzechitasApp"/>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.PHP.ForbiddenClasses">
+        <properties>
+            <property name="forbiddenClasses" type="array">
+                <element key="App" value="Illuminate\Support\Facades\App"/>
+                <element key="Alert" value="\Prologue\Alerts\Facades\Alert"/>
+                <element key="Artisan" value="Illuminate\Support\Facades\Artisan"/>
+                <element key="Auth" value="Illuminate\Support\Facades\Auth"/>
+                <element key="Blade" value="Illuminate\Support\Facades\Blade"/>
+                <element key="Broadcast" value="Illuminate\Support\Facades\Broadcast"/>
+                <element key="Bus" value="Illuminate\Support\Facades\Bus"/>
+                <element key="Cache" value="Illuminate\Support\Facades\Cache"/>
+                <element key="Config" value="Illuminate\Support\Facades\Config"/>
+                <element key="Cookie" value="Illuminate\Support\Facades\Cookie"/>
+                <element key="Crypt" value="Illuminate\Support\Facades\Crypt"/>
+                <element key="DB" value="Illuminate\Support\Facades\DB"/>
+                <element key="Eloquent" value="Illuminate\Database\Eloquent\Model"/>
+                <element key="Event" value="Illuminate\Support\Facades\Event"/>
+                <element key="File" value="Illuminate\Support\Facades\File"/>
+                <element key="Gate" value="Illuminate\Support\Facades\Gate"/>
+                <element key="Hash" value="Illuminate\Support\Facades\Hash"/>
+                <element key="Lang" value="Illuminate\Support\Facades\Lang"/>
+                <element key="Log" value="Illuminate\Support\Facades\Log"/>
+                <element key="Mail" value="Illuminate\Support\Facades\Mail"/>
+                <element key="Notification" value="Illuminate\Support\Facades\Notification"/>
+                <element key="Password" value="Illuminate\Support\Facades\Password"/>
+                <element key="Queue" value="Illuminate\Support\Facades\Queue"/>
+                <element key="Redirect" value="Illuminate\Support\Facades\Redirect"/>
+                <element key="Redis" value="Illuminate\Support\Facades\Redis"/>
+                <element key="Request" value="Illuminate\Support\Facades\Request"/>
+                <element key="Response" value="Illuminate\Support\Facades\Response"/>
+                <element key="Route" value="Illuminate\Support\Facades\Route"/>
+                <element key="Schema" value="Illuminate\Support\Facades\Schema"/>
+                <element key="Session" value="Illuminate\Support\Facades\Session"/>
+                <element key="Storage" value="Illuminate\Support\Facades\Storage"/>
+                <element key="URL" value="Illuminate\Support\Facades\URL"/>
+                <element key="Validator" value="Illuminate\Support\Facades\Validator"/>
+                <element key="View" value="Illuminate\Support\Facades\View"/>
+                <element key="Str" value="\Illuminate\Support\Str"/>
+                <element key="Validator" value="Illuminate\Support\Facades\Validator"/>
+            </property>
+        </properties>
+    </rule>
+</ruleset>

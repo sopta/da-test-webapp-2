@@ -1,0 +1,91 @@
+.header {
+    $nav-height: 80px;
+    $nav-padding: 1rem;
+
+    background: $white;
+
+    nav.top-menu {
+        height: $nav-height;
+        padding: 0 $nav-padding;
+
+        .navbar-brand {
+            padding-top: 0;
+        }
+
+        .menu_content {
+            align-self: flex-start;
+            background: $white;
+            box-shadow: 0 12px 12px rgba(0, 0, 0, 0.175);
+            margin-left: -$nav-padding;
+            margin-top: $nav-height;
+            padding: $nav-padding;
+            position: absolute;
+            width: 100%;
+            z-index: 2;
+
+            a.nav-link {
+                font-weight: $font-weight-semibold;
+            }
+
+            @include media-breakpoint-up(md) {
+                align-self: auto;
+                box-shadow: none;
+                margin-left: 0;
+                margin-top: 0;
+                padding: 0;
+                position: relative;
+            }
+        }
+
+        @include media-breakpoint-down(sm) {
+            .submenu {
+                border-width: 0 0 0 2px;
+            }
+        }
+    }
+
+    img.logo {
+        margin-top: 3px;
+    }
+
+    .breadcrumb-item {
+        a {
+            color: $white;
+
+            &:hover {
+                color: $gray-400;
+            }
+        }
+    }
+}
+
+.header_img {
+    background: image-url('header_panel.jpg') center center no-repeat;
+    background-size: cover;
+    height: 121px;
+    padding: 1rem 2.2rem;
+
+    h1 {
+        color: $white;
+        margin: 0;
+        padding: 0;
+
+        @include media-breakpoint-down(sm) {
+            font-size: 2rem;
+        }
+    }
+}
+
+.navbar.admin_menu {
+    .nav_top_items {
+        width: calc(100% - 95px);
+    }
+
+    a.nav-link {
+        color: $navbar-light-color;
+
+        &:hover {
+            color: $link-hover-color;
+        }
+    }
+}

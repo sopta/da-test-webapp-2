@@ -1,0 +1,105 @@
+.footer {
+    font-size: 14px;
+
+    h4 {
+        border-bottom: 1px solid $gray-300;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    a {
+        color: darken($primary, 10%);
+
+        &:hover {
+            color: lighten($primary, 20%);
+        }
+    }
+
+    .footer__content {
+        background: $white;
+        padding-bottom: ($grid-gutter-width / 2);
+        padding-top: ($grid-gutter-width / 2);
+    }
+}
+
+.footer__about {
+    font-size: 12px;
+}
+
+.footer__news {
+    border-bottom: 1px solid $gray-100;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    a {
+        display: block;
+        font-size: 14px;
+    }
+
+    time {
+        font-size: 12px;
+    }
+}
+
+.footer__links {
+    a {
+        border-bottom: 1px solid $gray-100;
+        display: block;
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+}
+
+.footer__contact {
+    a {
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+}
+
+// -----------------------
+//  Copyright and socials
+// -----------------------
+.footer__copyright {
+    background: rgba(0, 0, 0, 0.8);
+    color: $white;
+    font-size: 14px;
+    padding: 10px 0;
+
+    img {
+        margin-left: 1rem;
+        vertical-align: sub;
+    }
+}
+
+.footer__socials {
+    height: 28px;
+
+    .footer__icon {
+        display: inline-block;
+        height: 26px;
+        margin: 0 6px;
+        opacity: 0.75;
+        width: 26px;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &.fi-fb {
+            background: image-url('icons/facebook.svg') center center no-repeat;
+            background-image: inline-image('icons/facebook.svg');
+        }
+
+        &.fi-tw {
+            background: image-url('icons/twitter.svg') center center no-repeat;
+            background-image: inline-image('icons/twitter.svg');
+        }
+
+        &.fi-ig {
+            background: image-url('icons/instagram.svg') center center no-repeat;
+            background-image: inline-image('icons/instagram.svg');
+        }
+    }
+}

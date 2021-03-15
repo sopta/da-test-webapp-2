@@ -1,0 +1,36 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-image: image-url('bg.jpg') repeat;
+    background-image: inline-image('bg.jpg');
+}
+
+.main_wrap {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+
+    .main_content {
+        flex: 1 1 auto;
+        padding-bottom: ($grid-gutter-width / 2);
+        padding-top: ($grid-gutter-width / 2);
+    }
+}
+
+.table-dark {
+    &,
+    > th,
+    > td {
+        background-color: $gray-600;
+    }
+
+    a:not(.btn) {
+        color: lighten($link-color, 55%);
+
+        @include hover {
+            color: lighten($link-hover-color, 35%);
+        }
+    }
+}

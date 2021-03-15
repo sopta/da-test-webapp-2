@@ -1,0 +1,305 @@
+// Custom settings and mixins
+@import 'custom_settings';
+@import 'modules/compass_like_migration';
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+// Backgrounds
+$mail-body-bg: $body-bg;
+$mail-panel-bg: #edeff2;
+$mail-inner-body-bg: #ffffff;
+
+// Colors & Typos
+$mail-font-color: #74787e;
+$mail-heading-color: #2f3133;
+$mail-link-color: $link-color;
+$mail-footer-color: #aeaeae;
+$mail-th-font-color: $mail-heading-color;
+$mail-button-color: #ffffff;
+
+$mail-font-size: 16px;
+$mail-line-height: 1.4em;
+
+/* stylelint-disable property-no-vendor-prefix */
+
+// ------------------------------------------------
+
+/* Base */
+body, body *:not(html):not(style):not(br):not(tr):not(code) {
+    box-sizing: border-box;
+    font-family: Avenir, Helvetica, sans-serif;
+}
+
+body {
+    background-color: $mail-body-bg;
+    color: $mail-font-color;
+    height: 100%;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    line-height: $mail-line-height;
+    margin: 0;
+    -webkit-text-size-adjust: none;
+    width: 100% !important;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+}
+
+p,
+ul,
+ol,
+blockquote {
+    line-height: $mail-line-height;
+    text-align: left;
+}
+
+a {
+    color: $mail-link-color;
+}
+
+a img {
+    border: none;
+}
+
+hr {
+    background-color: $mail-panel-bg;
+    border: 0;
+    height: 1px;
+    margin: 15px 0;
+    width: 100%;
+}
+
+/* Typography */
+
+h1 {
+    color: $mail-heading-color;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 0;
+    text-align: left;
+}
+
+h2 {
+    color: $mail-heading-color;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 0;
+    text-align: left;
+}
+
+h3 {
+    color: $mail-heading-color;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 0;
+    text-align: left;
+}
+
+p {
+    color: $mail-font-color;
+    font-size: $mail-font-size;
+    line-height: $mail-line-height;
+    margin-top: 0;
+    text-align: left;
+}
+
+p.sub {
+    font-size: 12px;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Layout */
+
+.wrapper {
+    background-color: $mail-body-bg;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    margin: 0;
+    padding: 0;
+    -premailer-width: 100%;
+    width: 100%;
+}
+
+.content {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    margin: 0;
+    padding: 0;
+    -premailer-width: 100%;
+    width: 100%;
+}
+
+/* Header */
+
+.header {
+    padding: 10px 0;
+    text-align: center;
+
+    a {
+        color: $primary;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        text-shadow: 0 1px 0 #ffffff;
+    }
+}
+
+.header_inner {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    margin: 0 auto;
+    padding: 0;
+    -premailer-width: 570px;
+    width: 570px;
+}
+
+.header_logo {
+    height: 55px;
+}
+
+.header_name {
+    padding-left: 35px;
+}
+
+/* Body */
+.body {
+    background-color: $mail-inner-body-bg;
+    border-bottom: 1px solid #edeff2;
+    border-top: 1px solid #edeff2;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    margin: 0;
+    padding: 0;
+    -premailer-width: 100%;
+    width: 100%;
+}
+
+.inner-body {
+    background-color: $mail-inner-body-bg;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    margin: 0 auto;
+    padding: 0;
+    -premailer-width: 570px;
+    width: 570px;
+}
+
+/* Subcopy */
+
+.subcopy {
+    border-top: 1px solid #edeff2;
+    margin-top: 25px;
+    padding-top: 25px;
+}
+
+.subcopy p {
+    font-size: 12px;
+}
+
+/* Footer */
+
+.footer {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    -premailer-width: 570px;
+    width: 570px;
+}
+
+.footer p {
+    color: $mail-footer-color;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Tables */
+
+.table table {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    margin: 30px auto;
+    -premailer-width: 100%;
+    width: 100%;
+}
+
+.table th {
+    border-bottom: 1px solid #edeff2;
+    color: $mail-th-font-color;
+    margin: 0;
+    padding: 7px 5px;
+}
+
+.table td {
+    color: $mail-font-color;
+    font-size: 15px;
+    line-height: 18px;
+    margin: 0;
+    padding: 7px 5px;
+}
+
+.content-cell {
+    padding: 25px;
+}
+
+/* Buttons */
+
+.action {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    margin: 30px auto;
+    padding: 0;
+    text-align: center;
+    -premailer-width: 100%;
+    width: 100%;
+}
+
+.button {
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+    color: $mail-button-color;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-text-size-adjust: none;
+}
+
+@each $color, $value in $theme-colors {
+    .button-#{$color} {
+        background-color: $value;
+        border-bottom: 10px solid $value;
+        border-left: 18px solid $value;
+        border-right: 18px solid $value;
+        border-top: 10px solid $value;
+    }
+}
+
+/* Panels */
+
+.panel {
+    margin: 0 0 21px;
+}
+
+.panel-content {
+    background-color: $mail-panel-bg;
+    padding: 16px;
+}
+
+.panel-item {
+    padding: 0;
+}
+
+.panel-item p:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.feedback-table p {
+    margin: 0;
+}

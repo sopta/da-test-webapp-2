@@ -1,0 +1,13 @@
+{
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/php"
+    }
+  ],
+  "scripts": {
+    "pr-predestroy": "php artisan destroy-env"
+  }
+}

@@ -1,0 +1,36 @@
+### Laravel ###
+/bootstrap/compiled.php
+/storage/*.key
+/vendor
+/public/storage
+/public/hot
+Homestead.yaml
+Homestead.json
+.env
+*.log
+composer.phar
+
+### OSX ###
+.DS_Store
+
+### Bundler ###
+Gemfile.lock
+
+### Node ###
+/node_modules
+
+### Bower ###
+bower_components
+
+### Sass ###
+*.sass-cache
+
+### Netbeans ###
+nbproject
+
+### PhpStorm ###
+.idea
+
+### Sublime Text ###
+*.sublime-*
+!*.sublime-project

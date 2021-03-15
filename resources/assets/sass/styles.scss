@@ -1,0 +1,27 @@
+// Custom settings and mixins
+@import 'custom_settings';
+@import 'modules/compass_like_migration';
+
+// Import main bootstrap styles
+@import 'bootstrap';
+
+// Override basic bootstrap
+@import 'general';
+
+// Custom styles
+@import 'body_and_layout';
+@import 'header';
+@import 'intro';
+@import 'footer';
+@import 'modules/twocols-table';
+
+// Fontawesome
+@import 'modules/font-awesome';
+
+// Bootstrap select
+@import 'modules/bootstrap-select';
+
+// Libraries
+@import '~toastr';
+@import '~flatpickr/dist/flatpickr.css';
+@import '~flatpickr/dist/themes/material_red.css';

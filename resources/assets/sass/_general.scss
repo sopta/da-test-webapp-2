@@ -1,0 +1,32 @@
+a {
+    transition: $link-transition;
+}
+
+.card .table {
+    margin-bottom: 0;
+
+    tr:first-child {
+        td, th {
+            border-top: 0;
+        }
+    }
+}
+
+.custom-control.is-invalid ~ .invalid-feedback {
+    display: block;
+}
+
+.form-control.is-invalid ~ .CodeMirror-wrap { // stylelint-disable-line selector-class-pattern
+    border: 1px solid $red;
+}
+
+.no-bold {
+    font-weight: normal;
+}
+
+code {
+    background: #dedede;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 0 4px 1px;
+}

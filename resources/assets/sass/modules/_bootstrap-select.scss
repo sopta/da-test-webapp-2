@@ -1,0 +1,28 @@
+$color-red-error: $danger;
+$color-green-success: $success;
+//** Placeholder text color
+$input-color-placeholder: #999999;
+
+@import '~bootstrap-select/sass/bootstrap-select';
+
+.bootstrap-select .dropdown-toggle {
+    background-clip: padding-box;
+    background-color: $input-bg;
+    border: $input-border-width solid $input-border-color;
+
+    &:focus {
+        outline: none !important;
+    }
+
+    &.btn {
+        color: $input-color;
+
+        &:hover {
+            color: $input-color;
+        }
+    }
+
+    &.bs-placeholder:focus {
+        color: $input-color;
+    }
+}

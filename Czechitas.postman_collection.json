@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "a8c09d73-4ece-46b8-9a75-dedaa7c1dda6",
+		"name": "Czechitas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "No authorization needed",
+			"item": [
+				{
+					"name": "Get categories",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new order - Camp",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"camp\",\n    \"client\": \"Školka u rybníčku\",\n    \"ico\": \"09902244\",\n    \"address\": \"U Lomu 159, Horni Dolni 988 77\",\n    \"substitute\": \"Mnou\",\n    \"contact_name\": \"Vojim Vomacka\",\n    \"contact_tel\": \"+420777888999\",\n    \"contact_mail\": \"vojin.vomacka@czechitas.cz\",\n    \"start_date_1\": \"2021-01-01\",\n    \"end_date_1\": \"2021-01-10\",\n    \"start_date_2\": \"2021-02-01\",\n    \"end_date_2\": \"2021-01-01\",\n    \"students\": 22,\n    \"age\": \"15-20\",\n    \"adults\": 5,\n    \"date_part\": \"afternoon\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new order - School nature",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"school_nature\",\n    \"client\": \"Škola na hůrce\",\n    \"ico\": \"09902244\",\n    \"address\": \"U Lomu 159, Horni Dolni 988 77\",\n    \"substitute\": \"Mnou\",\n    \"contact_name\": \"Vojim Vomacka\",\n    \"contact_tel\": \"+420777888999\",\n    \"contact_mail\": \"vojin.vomacka@czechitas.cz\",\n    \"start_date_1\": \"2021-01-01\",\n    \"end_date_1\": \"2021-01-10\",\n    \"students\": 1,\n    \"age\": \"15-20\",\n    \"adults\": 5,\n    \"start_time\": \"01:30\",\n    \"start_food\": \"breakfast\",\n    \"end_time\": \"15:30\",\n    \"end_food\": \"dinner\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Has access token\", function () {",
+									"    pm.expect(jsonData.access_token).to.length.greaterThan(0);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"authToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Vojim Vomacka\",\n    \"email\": \"vojin.vomacka@czechitas.cz\",\n    \"password\": \"MyPass_123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Required authorization",
+			"item": [
+				{
+					"name": "Terms",
+					"item": [
+						{
+							"name": "Get Terms",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/terms?perPage=50&page=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"terms"
+									],
+									"query": [
+										{
+											"key": "perPage",
+											"value": "50"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get single Term",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/terms/:term_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"terms",
+										":term_id"
+									],
+									"variable": [
+										{
+											"key": "term_id",
+											"value": "7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create term",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"category_id\": 2,\n    \"start\": \"2021-02-03\",\n    \"end\": \"2021-02-04\",\n    \"opening\": \"2021-05-20T17:23:55+01:00\",\n    \"price\": 800\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/terms",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"terms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update term",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"category_id\": 2,\n    \"start\": \"2021-03-03\",\n    \"end\": \"2021-05-04\",\n    \"opening\": \"2021-05-20T17:23:55+01:00\",\n    \"price\": 1600,\n    \"note_public\": \"# Here comes the sun...\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/terms/:term_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"terms",
+										":term_id"
+									],
+									"variable": [
+										{
+											"key": "term_id",
+											"value": "7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete term",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/terms/:term_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"terms",
+										":term_id"
+									],
+									"variable": [
+										{
+											"key": "term_id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get current user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/current",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"current"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://czechitas.loc"
+		},
+		{
+			"key": "authToken",
+			"value": ""
+		}
+	]
+}
