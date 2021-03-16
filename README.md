@@ -2,6 +2,10 @@
 
 Aplikace využívá PHP framework [Laravel](https://laravel.com/docs/8.x/), [Bootstrap 4](https://getbootstrap.com/docs/4.6/getting-started/introduction/), [Webpack 5](https://webpack.js.org/).
 
+## Dokumentace:
+
+- Systém a jeho komponenty jsou popsány ve [Wiki](https://github.com/czechitas/da-test-webapp/wiki)
+
 ## Prerekvizity:
 
 - PHP 7.3+
@@ -35,9 +39,12 @@ Aplikace využívá PHP framework [Laravel](https://laravel.com/docs/8.x/), [Boo
 - `DB_*` - přístupové údaje k DB
 
 
-### Deployment
+## Deployment
+
 Deploy do služby Heroku a pak už jen profitovat z výsledku 🎉🎉
-#### Jedna aplikace
+
+### Jedna aplikace
+
 1. Vytvořit fork pro Váš běh digitální akademie
 1. Vytvořit účet na herokuapp.com
 1. Vytvořit si účet na AWS - je potřeba S3 Bucket nastavit.
@@ -67,9 +74,9 @@ Deploy do služby Heroku a pak už jen profitovat z výsledku 🎉🎉
 
 V tomto bodu jste ready-to-deploy. V záložce Deploy stačí v sekci Manual deploy stisknout tlačítko a tradá.
 
-#### Více aplikací
-Pokud máte více týmů a chcete více aplikací pro každý tým, tak je potřeba applikace dát do tzn. pipeliny. Pokud chceš deployvat různé verze, tak pro každý tým musíš vytvořit samostatnou branch. Pokud Ti to je jedno, stačí Ti `master` branch.
+### Více aplikací
 
+Pokud máte více týmů a chcete více aplikací pro každý tým, tak je potřeba applikace dát do tzn. pipeliny. Pokud chceš deployvat různé verze, tak pro každý tým musíš vytvořit samostatnou branch. Pokud Ti to je jedno, stačí Ti `master` branch.
 
 1. V záložce Deploy je - Connect to Pipeline 
 1. Vytvoř novou pipeline - vyber třeba Staging.
