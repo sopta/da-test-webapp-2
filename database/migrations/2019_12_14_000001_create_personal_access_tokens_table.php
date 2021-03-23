@@ -26,7 +26,7 @@ class CreatePersonalAccessTokensTable extends Migration
             $table->timestamp('last_used_at')->nullable();
             $table->timestamps();
 
-            $table->index(["tokenable_type", "tokenable_id"]);
+            $table->index(["tokenable_type", "tokenable_id"], dbTablePrefix()."pat_type_id_index");
         });
     }
 
