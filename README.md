@@ -83,6 +83,7 @@ Pokud máte více týmů a chcete více aplikací pro každý tým, tak je potř
 1. Poté je Tvá applikace vidět ve sloupečku STAGING. 
 1. Tvá aplikace je aktivní a ve sloupci STAGING lze přidat novou aplikaci.
 1. Pro ni opět nastav stejné VARS a addons (Cleardb) jak v krocích pro deploy jedné aplikace.
+    * Přidej další VAR - `OVERRIDE_APP_NAME` a pojmenuj ji např. po názvu týmu. Jde o prefix do DB, pokud sdílí všechny aplikace stejnou DB, ať si appky "nešahají na vzájemně na data"
 1. Vyber si, z jaké branche by se měla deployvat. 
 1. Opakuj tyto kroky pro každý tým co máš.
 1. `Optional` _- můžeš nastavit Review apps_
