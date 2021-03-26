@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Schema;
 
 class SeedData extends Migration
 {
@@ -15,6 +13,7 @@ class SeedData extends Migration
     public function up()
     {
         Artisan::call('db:seed', ['--force' => true]);
+        // Artisan::call('db:seed', ['--class' => 'TestDataSeeder' ,'--force' => true]);
     }
 
     /**

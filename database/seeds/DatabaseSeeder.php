@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name'      => "Robin Master",
-            'email'     => "master@czechitas-app.loc",
+            'email'     => "da-app.master@czechitas.cz",
             'password'  => Hash::make("AppRoot123"),
             'role'      => "master",
             'created_at'=> Carbon::now(),
@@ -25,7 +27,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             'name'      => "Lišák Admin",
-            'email'     => "admin@czechitas-app.loc",
+            'email'     => "da-app.admin@czechitas.cz",
             'password'  => Hash::make("Czechitas123"),
             'role'      => "admin",
             'created_at'=> Carbon::now(),
