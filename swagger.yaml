@@ -7,7 +7,7 @@ info:
   license:
     name: MIT
     url: https://github.com/czechitas-ostrava/registration-app/blob/master/LICENSE
-host: czechitas-da.kutac.cz
+host: czechitas-app.kutac.cz
 basePath: /api/
 schemes:
 - https
@@ -22,6 +22,7 @@ securityDefinitions:
     in: header
     description: >
       Add `Authorization` header with value `Bearer {{token}}`.
+      **Example value:** `Bearer ATlf4s6d18ds43sadrt48vc3s34`
 tags:
   - name: Categories collection
   - name: Orders collection
@@ -65,7 +66,7 @@ paths:
           $ref: '#/responses/401'
         403:
           $ref: '#/responses/403'
-  
+
   /orders:
     post:
       tags: [Orders collection]
@@ -182,7 +183,7 @@ paths:
               access_token: "***"
         422:
           $ref: '#/responses/422'
-          
+
   /users/current:
     get:
       tags: ['Users collection']
@@ -231,7 +232,7 @@ paths:
               updated_at: '2021-02-24T21:54:26.000000Z'
         401:
           $ref: '#/responses/401'
-          
+
   /terms:
     get:
       summary: List all terms
@@ -329,7 +330,7 @@ paths:
           $ref: '#/responses/403'
         422:
           $ref: '#/responses/422'
-          
+
   /terms/{termId}:
     get:
       summary: Get single term
@@ -420,7 +421,7 @@ paths:
           required: true
           type: integer
       responses:
-        
+
         200:
           description: Successful delete
           schema:
@@ -434,7 +435,7 @@ paths:
           $ref: '#/responses/403'
         404:
           $ref: '#/responses/404'
-          
+
 responses:
   401:
     description: Missing token
@@ -469,7 +470,7 @@ responses:
     examples:
       application/json:
         message: "No query results for model [CzechitasApp\\Models\\Term] 100"
-    
+
   422:
     description: Failed validation
     schema:
@@ -496,7 +497,7 @@ definitions:
           type: array
           items:
             type: string
-              
+
   SecondLevelCategory:
     title: Category nested under parent category
     type: object
@@ -528,7 +529,7 @@ definitions:
       image_path:
         type: string
         format: url
-        
+
   Category:
     title: Top level Category
     type: object
@@ -564,7 +565,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/SecondLevelCategory'
-  
+
   OrderRequest:
     title: Order of Camp or School in nature
     type: object
@@ -611,27 +612,27 @@ definitions:
         description: Email of the contact
       start_date_1:
         type: string
-        example: "2021-02-23"
+        format: date
         description: Beginning of 1. prefered term in YYYY-mm-dd format
       end_date_1:
         type: string
-        example: "2021-02-24"
+        format: date
         description: End of 1. prefered term in YYYY-mm-dd format
       start_date_2:
         type: string
-        example: "2021-02-23"
+        format: date
         description: Beginning of 2. prefered term in YYYY-mm-dd format
       end_date_2:
         type: string
-        example: "2021-02-24"
+        format: date
         description: End of 2. prefered term in YYYY-mm-dd format
       start_date_3:
         type: string
-        example: "2021-02-23"
+        format: date
         description: Beginning of 3. prefered term in YYYY-mm-dd format
       end_date_3:
         type: string
-        example: "2021-02-24"
+        format: date
         description: End of 3. prefered term in YYYY-mm-dd format
       students:
         type: number
@@ -652,7 +653,7 @@ definitions:
         format: HH:ii
         description: Required only for school_nature type
       start_food:
-        type: string  
+        type: string
         enum: [breakfast,lunch,dinner]
         description: Required only for school_nature type
       end_time:
@@ -660,10 +661,10 @@ definitions:
         format: HH:ii
         description: Required only for school_nature type
       end_food:
-        type: string  
+        type: string
         enum: [breakfast,lunch,dinner]
         description: Required only for school_nature type
-          
+
   Order:
     title: Order response of Camp or School in nature
     type: object
@@ -720,10 +721,10 @@ definitions:
         type: string
         example: "2021-02-23"
         description: Beginning of 3. prefered term in YYYY-mm-dd format
-      
+
       xdata:
         type: object
-        properties:      
+        properties:
           end_date_1:
             type: string
             example: "2021-02-24"
@@ -735,7 +736,7 @@ definitions:
           end_date_3:
             type: string
             example: "2021-02-24"
-            description: End of 3. prefered term in YYYY-mm-dd format      
+            description: End of 3. prefered term in YYYY-mm-dd format
           students:
             type: number
             minimum: 1
@@ -755,7 +756,7 @@ definitions:
             format: HH:MM
             description: Required only for school_nature type
           start_food:
-            type: string  
+            type: string
             enum: [breakfast,lunch,dinner]
             description: Required only for school_nature type
           end_time:
@@ -763,10 +764,10 @@ definitions:
             format: HH:MM
             description: Required only for school_nature type
           end_food:
-            type: string  
+            type: string
             enum: [breakfast,lunch,dinner]
             description: Required only for school_nature type
-          
+
       created_at:
         type: string
         format: date-time
@@ -775,7 +776,7 @@ definitions:
         type: string
         format: date-time
         description: Date in RFC3339 format
-  
+
   Term:
     title: Term
     type: object
@@ -817,7 +818,7 @@ definitions:
         type: string
         format: date-time
         description: Date in RFC3339 format
-  
+
   TermRequest:
     title: Term request
     type: object
@@ -828,13 +829,14 @@ definitions:
         minimum: 1
       start:
         type: string
-        format: date-time
+        format: date
       end:
         type: string
-        format: date-time
+        format: date
       opening:
         type: string
-        format: date-time
+        example: null
+        description: "Must be in format like '2021-01-30T12:34:56+02:00', Z as timezone cannot be used"
       price:
         type: number
         minimum: 1
