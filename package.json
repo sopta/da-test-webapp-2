@@ -2,6 +2,10 @@
   "name": "czechitas-app",
   "version": "1.0.0",
   "private": true,
+  "engines" : {
+    "npm" : ">=6.14.15",
+    "node" : ">=14.18.0 <15"
+  },
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack --mode=development --watch",
     "debug": "cross-env NODE_ENV=development webpack --mode=development",
