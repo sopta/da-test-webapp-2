@@ -134,15 +134,15 @@ class CategoryService extends ModelBaseService
 
     public function getImageUrl(): ?string
     {
-        $filePath = $this->getImagePath();
         $url = Cache::get($this->getCacheKey());
         if ($url !== null) {
             return $url;
         }
 
+        $filePath = $this->getImagePath();
         if (UploadStorageService::exists($filePath)) {
             $url = UploadStorageService::url($filePath) . '?v' . UploadStorageService::lastModified($filePath);
-            Cache::put($this->getCacheKey(), $url, 30 * 60);
+            Cache::put($this->getCacheKey(), $url, 120 * 60); // save into cache for 2 hours
 
             return $url;
         }

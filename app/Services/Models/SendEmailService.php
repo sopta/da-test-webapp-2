@@ -73,7 +73,6 @@ class SendEmailService extends ModelBaseService
         if (Storage::exists($this->getContext()->filename)) {
             return Storage::get($this->getContext()->filename);
         }
-        Log::warning(\sprintf("File '%s' does not exists", $this->getContext()->filename));
 
         return null;
     }
