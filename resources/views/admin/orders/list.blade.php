@@ -21,8 +21,9 @@
                     // row == all data
                     $wrap = $("<div>").
                         append($("<a>").attr("href", "mailto:"+row.contact_mail).text(row.contact_mail)).
-                        append(", Tel: "+row.contact_tel);
-                    return data+"<br>"+$wrap.html();
+                        append(", Tel: ").
+                        append($("<span>").text(row.contact_tel));
+                    return $("<span>").text(data).html()+"<br>"+$wrap.html();
                 }
             },
             {

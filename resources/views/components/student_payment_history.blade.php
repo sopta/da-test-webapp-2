@@ -35,7 +35,7 @@
                                     @endif
                                     @if ($payment->user)
                                         @can('addPayment', $student)
-                                            <br>@lang('students.payments.history.added', ['name' => $payment->user->name])
+                                            <br>@lang('students.payments.history.added', ['name' => e($payment->user->name)])
                                         @endcan
                                     @endif
                                 </td>

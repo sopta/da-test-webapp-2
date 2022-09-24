@@ -27,7 +27,7 @@
     @can('delete', $category)
         <div>
             @component('components.modal_yes_no_form', [ 'id' => 'deleteCat_'.$category->id, 'route' => route('admin.categories.destroy', $category)] )
-                @lang('categories.delete_modal', ['name' => $category->name])
+                @lang('categories.delete_modal', ['name' => e($category->name)])
             @endcomponent
         </div>
     @endcan

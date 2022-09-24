@@ -37,7 +37,7 @@
                                 <td data-order="{{ $student->price_to_pay }}">{{ formatPrice($student->price_to_pay) }}</td>
                                 <td>
                                     @if ($student->canceled !== null)
-                                        <span data-toggle="tooltip" title="@lang('students.table.canceled_desc', ['reason' => $student->canceled])">
+                                        <span data-toggle="tooltip" title="@lang('students.table.canceled_desc', ['reason' => e($student->canceled)])">
                                             <i class="fa fa-fw fa-info-circle pr-1"></i>@lang('students.table.canceled')
                                         </span>
                                     @endif

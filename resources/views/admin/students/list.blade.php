@@ -26,9 +26,6 @@
                 render: function (data, type, row, meta) {
                     // data == ID
                     // row == all data
-                    if(!row.term_id){
-                        return data;
-                    }
                     $wrap = $("<div>").append($("<a>").attr("href", "{{ route('admin.terms.show', ["__placeholder__"]) }}".replace("__placeholder__", row.term_id)).text(data));
                     return $wrap.html();
                 }

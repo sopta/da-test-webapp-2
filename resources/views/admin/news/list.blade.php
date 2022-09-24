@@ -44,7 +44,7 @@
                                     </div>
                                     @can('delete', $newsItem)
                                         @component('components.modal_yes_no_form', [ 'id' => 'deleteNWS_'.$newsItem->id, 'route' => route('admin.news.destroy', $newsItem)] )
-                                            @lang('news.delete_modal', ['title' => $newsItem->title])
+                                            @lang('news.delete_modal', ['title' => e($newsItem->title)])
                                         @endcomponent
                                     @endcan
                                 </td>

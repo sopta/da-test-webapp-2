@@ -225,6 +225,20 @@ export default {
           };
         }
       }
+
+      if (this.dtConfig.columns) {
+        var targets = [];
+        for (var i = 0; i < this.dtConfig.columns.length; i++) {
+          targets.push(i)
+        }
+
+        if (this.dtConfig.columnDefs) {
+          this.dtConfig.columnDefs.push({targets:targets, render: this.preventXSSRenderer});
+        }else{
+          this.dtConfig.columnDefs = [{targets:targets, render: this.preventXSSRenderer}];
+        }
+      }
+
       // Init DataTable
       this.instance = $tableEl.DataTable(
         $.extend(
@@ -292,30 +306,34 @@ export default {
       return this.replaceTemplate(templateEl, data, row);
     },
 
+    preventXSSRenderer: function (data, type, row, meta) {
+      return $("<span>").text(data).html();
+    },
+
     replaceTemplate: function (templateEl, data, row) {
-      var buttons = templateEl.clone();
+      var template = templateEl.clone();
       var attrs = {
         A: 'href',
         DIV: 'id',
         FORM: 'action',
       };
       if (row['policy']) {
-        buttons.find('[data-can]').each(function () {
+        template.find('[data-can]').each(function () {
           var can = $(this).attr('data-can');
           if (!row['policy'][can]) {
             $(this).remove();
           }
         });
       }
-      buttons.find('a, div.js-rendererReplace, form').each(function () {
+      template.find('a, div.js-rendererReplace, form').each(function () {
         var link = $(this).attr(attrs[this.nodeName]).replace('__placeholder__', data);
         $(this).attr(attrs[this.nodeName], link);
       });
-      return buttons
+      return template
         .html()
         .replace(/\{= data\.([a-z0-9_-]+) =\}/gi, function (match, dataIndex /*, offset, input_string*/) {
           if (row[dataIndex]) {
-            return row[dataIndex];
+            return $("<span>").text(row[dataIndex]).html();
           }
           return match;
         });
