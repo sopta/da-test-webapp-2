@@ -37,6 +37,7 @@ Aplikace využívá PHP framework [Laravel](https://laravel.com/docs/), [Bootstr
 - `HTTPS_ENABLE` - pokud je HTTPS povoleno, je automaticky každý request na HTTP přesměrován na HTTPS s kódem 301
     - Volitelně lze zapnout také HSTS, více na [kutac.cz/pocitace-a-internety/https-nestaci-jak-na-hsts-a-hpkp](https://www.kutac.cz/pocitace-a-internety/https-nestaci-jak-na-hsts-a-hpkp)
 - `DB_*` - přístupové údaje k DB
+- `APIARY_URL` - touto proměnnou je možné nastavit URL na dokumentaci k API. Pokud je nastavená, na URL aplikace `/api` bude přesměrování na tuto URL.
 
 
 ## Deployment

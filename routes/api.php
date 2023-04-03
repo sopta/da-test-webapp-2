@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [HomeController::class, 'apiary']);
 Route::post('orders', [OrderController::class, 'store']);
 Route::post('users/register', [ProfileController::class, 'register']);
 Route::get('categories', [CategoryController::class, 'index']);

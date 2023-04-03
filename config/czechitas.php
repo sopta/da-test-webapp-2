@@ -35,4 +35,6 @@ return [
 
     // Never delete DB tables with given prefixes during PR pre-destroy scripts
     'keep_prefixes' => [''],
+
+    'apiary' => env('APIARY_URL'),
 ];

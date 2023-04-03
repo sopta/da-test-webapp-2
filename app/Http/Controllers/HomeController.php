@@ -8,6 +8,7 @@ use CzechitasApp\Models\Category;
 use CzechitasApp\Services\BreadcrumbService;
 use CzechitasApp\Services\Models\CategoryService;
 use CzechitasApp\Services\Models\NewsService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -56,5 +57,16 @@ class HomeController extends Controller
     public function apiError404(): void
     {
         \abort(404, 'undefined API path');
+    }
+
+    public function apiary(): RedirectResponse
+    {
+        $url = config('czechitas.apiary');
+
+        if (empty($url)) {
+            \abort(404, 'undefined API path');
+        }
+
+        return redirect($url);
     }
 }
