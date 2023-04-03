@@ -94,6 +94,10 @@ V tomto bodu jste ready-to-deploy. V záložce Deploy stačí v sekci Manual dep
 
 Pokud máte více týmů a chcete více aplikací pro každý tým, tak je potřeba applikace dát do tzn. pipeliny. Pokud chceš deployvat různé verze, tak pro každý tým musíš vytvořit samostatnou branch. Pokud Ti to je jedno, stačí Ti `master` branch.
 
+> Pro zjednodušení je možné spustit `cd .heroku_builder` a `php build.php`. Ten vytvoří skripty pro spuštění, které vytvoří Heroku aplikace.
+> Konfigurace je pomocí souboru config.php a vygenerovaných skriptů využívají [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
+> Soubory `.env.example` a `swagger.yaml.example` slouží jako template.
+
 1. V záložce Deploy je - Connect to Pipeline 
 1. Vytvoř novou pipeline - vyber třeba Staging.
 1. Poté je Tvá applikace vidět ve sloupečku STAGING. 

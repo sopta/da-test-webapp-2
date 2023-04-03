@@ -1,0 +1,845 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: "${APIARY_NAME}"
+  description: >
+    **Czechitas DA App** is application made for testing and educational purposes for [Czechitas Digital Academy](https://www.czechitas.cz/cs/co-delame/digitalni-akademie).
+host: ${APP_SUB_DOMAIN}.herokuapp.com
+basePath: /api/
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+securityDefinitions:
+  Bearer token:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: >
+      Add `Authorization` header with value `Bearer {{token}}`.
+      **Example value:** `Bearer ATlf4s6d18ds43sadrt48vc3s34`
+tags:
+  - name: Categories collection
+  - name: Orders collection
+  - name: Users collection
+  - name: Terms collection
+paths:
+  /categories:
+    get:
+      summary: List all categories
+      tags: [Categories collection]
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Category'
+          examples:
+            application/json:
+              - id: 1
+                parent_id: null
+                name: Programování
+                slug: 1-programovani
+                content: "# Programování a vše okolo"
+                position: 1
+                created_at: '2021-02-18T21:01:27.000000Z'
+                updated_at: '2021-02-18T21:01:27.000000Z'
+                imagePath: 'https://czechitas.loc/uploads/category/1-programovani.jpg?v1614019523'
+                children:
+                  - id: 2
+                    parent_id: 1
+                    name: JavaScript
+                    slug: 2-js
+                    contains_school: 0
+                    content: "## Zaměření hlavně na JavaScript a NodeJS"
+                    position: 1
+                    created_at: '2021-02-18T21:01:45.000000Z'
+                    updated_at: '2021-02-18T21:01:45.000000Z'
+                    imagePath: 'https://czechitas.loc/uploads/category/2-js.jpg?v1614020508'
+        401:
+          $ref: '#/responses/401'
+        403:
+          $ref: '#/responses/403'
+
+  /orders:
+    post:
+      tags: [Orders collection]
+      summary: Create a new Order
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/OrderRequest'
+
+      responses:
+        201:
+          description: Create new order
+          schema:
+            $ref: '#/definitions/Order'
+          examples:
+            application/json:
+              id: 7
+              type: camp
+              client: Školka u rybníčku
+              ico: 09902244
+              address: 'U Lomu 159, Horni Dolni 988 77'
+              substitute: Mnou
+              contact_name: Vojim Vomacka
+              contact_tel: '+420777888999'
+              contact_mail: vojin.vomacka@czechitas.cz
+              start_date_1: '2020-12-31T23:00:00.000000Z'
+              start_date_2: null
+              start_date_3: null
+              xdata:
+                students: 22
+                age: 15-20
+                adults: 5
+                end_date_1: '2021-01-09T23:00:00.000000Z'
+                end_date_2: null
+                end_date_3: null
+                date_part: afternoon
+              updated_at: '2021-02-24T19:39:25.000000Z'
+              created_at: '2021-02-24T19:39:25.000000Z'
+        401:
+          $ref: '#/responses/401'
+        403:
+          $ref: '#/responses/403'
+        422:
+          $ref: '#/responses/422'
+
+  /users/register:
+    post:
+      tags: ['Users collection']
+      summary: Register new user with role Parent
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - name
+              - email
+              - password
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+                format: email
+                description: Is also username in the UI
+              password:
+                type: string
+                format: password
+
+      responses:
+        201:
+          description: Created new user
+          schema:
+            type: object
+            required:
+              - id
+              - name
+              - email
+              - role
+              - access_token
+            properties:
+              id:
+                type: number
+              name:
+                type: string
+              email:
+                type: string
+              role:
+                type: string
+                enum: [parent]
+                description: New user is always parent role
+              created_at:
+                type: string
+                format: date-time
+                description: DateTime in RFC3339 format
+              updated_at:
+                type: string
+                format: date-time
+                description: DateTime in RFC3339 format
+              access_token:
+                type: string
+                description: Bearer token for new user
+          examples:
+            application/json:
+              id: 10
+              name: Vojim Vomacka
+              email: vojin.vomacka@czechitas.cz
+              role: parent
+              created_at: '2021-02-24T21:54:26.000000Z'
+              updated_at: '2021-02-24T21:54:26.000000Z'
+              access_token: "***"
+        422:
+          $ref: '#/responses/422'
+
+  /users/current:
+    get:
+      tags: ['Users collection']
+      security:
+        - Bearer token: ['parent', 'admin', 'master']
+      summary: Get current logged in user
+      responses:
+        200:
+          description: Authenticated user
+          schema:
+            type: object
+            required:
+              - id
+              - name
+              - email
+              - role
+            properties:
+              id:
+                type: number
+              name:
+                type: string
+              email:
+                type: string
+              is_blocked:
+                type: boolean
+              role:
+                type: string
+                enum: [parent]
+                description: New user is always parent role
+              created_at:
+                type: string
+                format: date-time
+                description: DateTime in RFC3339 format
+              updated_at:
+                type: string
+                format: date-time
+                description: DateTime in RFC3339 format
+          examples:
+            application/json:
+              id: 10
+              name: Vojim Vomacka
+              email: vojin.vomacka@czechitas.cz
+              is_blocked: false
+              role: parent
+              created_at: '2021-02-24T21:54:26.000000Z'
+              updated_at: '2021-02-24T21:54:26.000000Z'
+        401:
+          $ref: '#/responses/401'
+
+  /terms:
+    get:
+      summary: List all terms
+      tags: [Terms collection]
+      security:
+        - Bearer token: ['parent', 'admin', 'master']
+      parameters:
+        - name: page
+          in: query
+          required: false
+          type: integer
+          minimum: 1
+          default: 1
+        - name: perPage
+          in: query
+          required: false
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+      responses:
+        200:
+          description: Lists all terms. When `parent` is authenticated, only available terms are listed.
+          schema:
+            type: array
+            items:
+              type: object
+              required: [id, category_id, start, end, price]
+              properties:
+                id:
+                  type: number
+                category_id:
+                  type: number
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+                opening:
+                  type: string
+                  format: date-time
+                price:
+                  type: number
+                  minimum: 1
+          examples:
+            application/json:
+              - id: 1
+                category_id: 2
+                start: '2021-02-21T23:00:00.000000Z'
+                end: '2021-02-27T23:00:00.000000Z'
+                opening: null
+                price: 495
+              - id: 7
+                category_id: 2
+                start: '2021-04-30T22:00:00.000000Z'
+                end: '2021-05-03T22:00:00.000000Z'
+                opening: '2021-02-20T16:23:55.000000Z'
+                price: 1600
+        401:
+          $ref: '#/responses/401'
+        403:
+          $ref: '#/responses/403'
+    post:
+      summary: Crate new term
+      tags: [Terms collection]
+      security:
+        - Bearer token: ['admin', 'master']
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TermRequest'
+      responses:
+        201:
+          description: Successful creation
+          schema:
+            $ref: '#/definitions/Term'
+          examples:
+            application/json:
+              id: 8
+              category_id: 2
+              start: '2021-02-02T23:00:00.000000Z'
+              end: '2021-02-03T23:00:00.000000Z'
+              opening: '2021-05-20T15:23:55.000000Z'
+              price: 800
+              note_public: ''
+              note_private: ''
+              updated_at: '2021-02-24T23:12:09.000000Z'
+              created_at: '2021-02-24T23:12:09.000000Z'
+        401:
+          $ref: '#/responses/401'
+        403:
+          $ref: '#/responses/403'
+        422:
+          $ref: '#/responses/422'
+
+  /terms/{termId}:
+    get:
+      summary: Get single term
+      tags: [Terms collection]
+      security:
+        - Bearer token: ['parent', 'admin', 'master']
+      parameters:
+        - name: termId
+          in: path
+          description: Id of Term to get
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Show details of selected term. Return only some columns for parent
+          schema:
+            $ref: '#/definitions/Term'
+          examples:
+            application/json:
+              id: 7
+              category_id: 2
+              flag: null
+              start: '2021-04-30T22:00:00.000000Z'
+              end: '2021-05-03T22:00:00.000000Z'
+              opening: '2021-02-20T16:23:55.000000Z'
+              price: 1600
+              note_public: '# Here comes the sun...'
+              note_private: ''
+              created_at: '2021-02-22T19:43:25.000000Z'
+              updated_at: '2021-02-22T19:56:00.000000Z'
+              deleted_at: null
+        401:
+          $ref: '#/responses/401'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+    put:
+      summary: Update term
+      tags: [Terms collection]
+      security:
+        - Bearer token: ['admin', 'master']
+      parameters:
+        - name: termId
+          in: path
+          description: Id of Term to update
+          required: true
+          type: integer
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TermRequest'
+      responses:
+        200:
+          description: Successful update
+          schema:
+            $ref: '#/definitions/Term'
+          examples:
+            application/json:
+              id: 8
+              category_id: 2
+              start: '2021-02-02T23:00:00.000000Z'
+              end: '2021-02-03T23:00:00.000000Z'
+              opening: '2021-05-20T15:23:55.000000Z'
+              price: 800
+              note_public: ''
+              note_private: ''
+              updated_at: '2021-02-24T23:12:09.000000Z'
+              created_at: '2021-02-24T23:12:09.000000Z'
+        401:
+          $ref: '#/responses/401'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        422:
+          $ref: '#/responses/422'
+    delete:
+      summary: Delete term
+      tags: [Terms collection]
+      security:
+        - Bearer token: ['admin', 'master']
+      parameters:
+        - name: termId
+          in: path
+          description: Id of Term to delete
+          required: true
+          type: integer
+      responses:
+
+        200:
+          description: Successful delete
+          schema:
+            type: string
+          examples:
+            application/json:
+              "OK"
+        401:
+          $ref: '#/responses/401'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+
+responses:
+  401:
+    description: Missing token
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Unauthenticated."
+    examples:
+      application/json:
+        message: Unauthenticated.
+  403:
+    description: Forbidden
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "This action is unauthorized."
+    examples:
+      application/json:
+        message: This action is unauthorized.
+  404:
+    description: Not found
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "No query result"
+    examples:
+      application/json:
+        message: "No query results for model [CzechitasApp\\Models\\Term] 100"
+
+  422:
+    description: Failed validation
+    schema:
+      $ref: '#/definitions/ValidationError'
+    examples:
+      application/json:
+        message: The given data was invalid.
+        errors:
+          email:
+            - The email field is required.
+          end:
+            - The end must be a date after or equal to start.
+
+definitions:
+  ValidationError:
+    title: Response when request contains invalid data
+    type: object
+    properties:
+      message:
+        type: string
+      errors:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: string
+
+  SecondLevelCategory:
+    title: Category nested under parent category
+    type: object
+    required: [id, name, slug, position]
+    properties:
+      id:
+        type: number
+      parent_id:
+        type: number
+      name:
+        type: string
+      slug:
+        type: string
+        example: javascript
+        description: Must be valid for URL
+      content:
+        type: string
+        format: markdown
+      position:
+        type: number
+      created_at:
+        type: string
+        format: date-time
+        description: Date in RFC3339 format
+      updated_at:
+        type: string
+        format: date-time
+        description: Date in RFC3339 format
+      image_path:
+        type: string
+        format: url
+
+  Category:
+    title: Top level Category
+    type: object
+    required: [id, name, slug, position]
+    properties:
+      id:
+        type: number
+      parent_id:
+        type: number
+      name:
+        type: string
+      slug:
+        type: string
+        description: Must be valid for URL
+      content:
+        type: string
+        format: markdown
+        description: Supports markdown
+      position:
+        type: number
+      created_at:
+        type: string
+        format: date-time
+        description: Date in RFC3339 format
+      updated_at:
+        type: string
+        format: date-time
+        description: Date in RFC3339 format
+      image_path:
+        type: string
+        format: url
+      children:
+        type: array
+        items:
+          $ref: '#/definitions/SecondLevelCategory'
+
+  OrderRequest:
+    title: Order of Camp or School in nature
+    type: object
+    required:
+      - type
+      - client
+      - ico
+      - address
+      - substitute
+      - contact_name
+      - contact_tel
+      - contact_mail
+      - start_date_1
+      - end_date_1
+      - students
+      - age
+      - adults
+    properties:
+      type:
+        type: string
+        enum: [camp,school_nature]
+        description: According to selected type, another attributes might be requested as well
+      client:
+        type: string
+      ico:
+        type: string
+        maxLength: 15
+      address:
+        type: string
+        description: Address of the client, mostly school address
+      substitute:
+        type: string
+        description: "Mostly the director of the school"
+      contact_name:
+        type: string
+        description: Name of main teacher who is contacted according to the Camp or School in nature
+      contact_tel:
+        type: string
+        format: phone number
+        description: Phone number of the contact
+      contact_mail:
+        type: string
+        format: email
+        description: Email of the contact
+      start_date_1:
+        type: string
+        format: date
+        description: Beginning of 1. prefered term in YYYY-mm-dd format
+      end_date_1:
+        type: string
+        format: date
+        description: End of 1. prefered term in YYYY-mm-dd format
+      start_date_2:
+        type: string
+        format: date
+        description: Beginning of 2. prefered term in YYYY-mm-dd format
+      end_date_2:
+        type: string
+        format: date
+        description: End of 2. prefered term in YYYY-mm-dd format
+      start_date_3:
+        type: string
+        format: date
+        description: Beginning of 3. prefered term in YYYY-mm-dd format
+      end_date_3:
+        type: string
+        format: date
+        description: End of 3. prefered term in YYYY-mm-dd format
+      students:
+        type: number
+        minimum: 1
+      age:
+        type: string
+        maxLength: 30
+        description: What age students are, any textual representation
+      adults:
+        type: number
+        minimum: 1
+      date_part:
+        type: string
+        enum: [forenoon,afternoon]
+        description: Required only for camp type
+      start_time:
+        type: string
+        format: HH:ii
+        description: Required only for school_nature type
+      start_food:
+        type: string
+        enum: [breakfast,lunch,dinner]
+        description: Required only for school_nature type
+      end_time:
+        type: string
+        format: HH:ii
+        description: Required only for school_nature type
+      end_food:
+        type: string
+        enum: [breakfast,lunch,dinner]
+        description: Required only for school_nature type
+
+  Order:
+    title: Order response of Camp or School in nature
+    type: object
+    required:
+      - id
+      - type
+      - client
+      - ico
+      - address
+      - substitute
+      - contact_name
+      - contact_tel
+      - contact_mail
+      - start_date_1
+      - xdata
+    properties:
+      id:
+        type: number
+      type:
+        type: string
+        enum: [camp,school_nature]
+        description: According to selected type, another attributes might be requested as well
+      client:
+        type: string
+      ico:
+        type: string
+        maxLength: 15
+      address:
+        type: string
+        description: Address of the client, mostly school address
+      substitute:
+        type: string
+        description: "Mostly the director of the school"
+      contact_name:
+        type: string
+        description: Name of main teacher who is contacted according to the Camp or School in nature
+      contact_tel:
+        type: string
+        format: phone number
+        description: Phone number of the contact
+      contact_mail:
+        type: string
+        format: email
+        description: Email of the contact teacher
+      start_date_1:
+        type: string
+        example: "2021-02-23"
+        description: Beginning of 1. prefered term in YYYY-mm-dd format
+      start_date_2:
+        type: string
+        example: "2021-02-23"
+        description: Beginning of 2. prefered term in YYYY-mm-dd format
+      start_date_3:
+        type: string
+        example: "2021-02-23"
+        description: Beginning of 3. prefered term in YYYY-mm-dd format
+
+      xdata:
+        type: object
+        properties:
+          end_date_1:
+            type: string
+            example: "2021-02-24"
+            description: End of 1. prefered term in YYYY-mm-dd format
+          end_date_2:
+            type: string
+            example: "2021-02-24"
+            description: End of 2. prefered term in YYYY-mm-dd format
+          end_date_3:
+            type: string
+            example: "2021-02-24"
+            description: End of 3. prefered term in YYYY-mm-dd format
+          students:
+            type: number
+            minimum: 1
+          age:
+            type: string
+            maxLength: 30
+            description: What age students are, any textual representation
+          adults:
+            type: number
+            minimum: 1
+          date_part:
+            type: string
+            enum: [forenoon,afternoon]
+            description: Required only for camp type
+          start_time:
+            type: string
+            format: HH:MM
+            description: Required only for school_nature type
+          start_food:
+            type: string
+            enum: [breakfast,lunch,dinner]
+            description: Required only for school_nature type
+          end_time:
+            type: string
+            format: HH:MM
+            description: Required only for school_nature type
+          end_food:
+            type: string
+            enum: [breakfast,lunch,dinner]
+            description: Required only for school_nature type
+
+      created_at:
+        type: string
+        format: date-time
+        description: Date in RFC3339 format
+      updated_at:
+        type: string
+        format: date-time
+        description: Date in RFC3339 format
+
+  Term:
+    title: Term
+    type: object
+    required: [id, category_id, start, end, price]
+    properties:
+      id:
+        type: number
+      category_id:
+        type: number
+      flag:
+        type: string
+      start:
+        type: string
+        format: date-time
+      end:
+        type: string
+        format: date-time
+      opening:
+        type: string
+        format: date-time
+      price:
+        type: number
+        minimum: 1
+      note_public:
+        type: string
+        format: markdown
+      note_private:
+        type: string
+        format: markdown
+      created_at:
+        type: string
+        format: date-time
+        description: Date in RFC3339 format
+      updated_at:
+        type: string
+        format: date-time
+        description: Date in RFC3339 format
+      deleted_at:
+        type: string
+        format: date-time
+        description: Date in RFC3339 format
+
+  TermRequest:
+    title: Term request
+    type: object
+    required: [category_id, start, end, price]
+    properties:
+      category_id:
+        type: number
+        minimum: 1
+      start:
+        type: string
+        format: date
+      end:
+        type: string
+        format: date
+      opening:
+        type: string
+        example: null
+        description: "Must be in format like '2021-01-30T12:34:56+02:00', Z as timezone cannot be used"
+      price:
+        type: number
+        minimum: 1
+      note_public:
+        type: string
+        format: markdown
+      note_private:
+        type: string
+        format: markdown
