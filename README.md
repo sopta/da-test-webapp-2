@@ -28,17 +28,45 @@ Aplikace využívá PHP framework [Laravel](https://laravel.com/docs/), [Bootstr
 
 ### Konfigurace pomocí `.env`
 
+Pro lokální použití je nejjednodušší zkopírovat `.env.example` a nastavit jen potřebné.
+Do Heroku je nutné zadávat vše, co se bude měnit.
+
+**Povinné:**
+
 - `APP_KEY` - Secret key - slouží k šifrování cookies a session - při změně budou všichni uživatelé odhlášení
     - Lze přegenerovat pomocí `php artisan key:generate`
+- `DB_*` - přístupové údaje k DB
+
+**Nejspíše povinné:**
+- `FILESYSTEM_DRIVER` - Pro Heroku je potřeba nastavit externí úložiště, viz níže. Jinak je lokální úložiště jako defaultní.
+- `APIARY_URL` - touto proměnnou je možné nastavit URL na dokumentaci k API. Pokud je nastavená, na URL `/api` bude přesměrování na tuto URL.
+- `OVERRIDE_APP_NAME`, `DISABLE_PREFIXES` a `DISABLE_SUBFOLDERS` - viz níže *Více aplikací se stejnou DB nebo úložištěm*
+
+**Volitelné:**
+- `APP_DEBUG` - nastavení na `true` zapne Debugbar, výpis chyb místo generické 500 atd.
+- `APP_ENV` - defaultně `production`, může mít efekt na funkcionalitu, lokálně lze nastavit `local`
 - `APP_URL` - URL adresa, na které systém běží. Používá se při generování obsahu emailů
 - `APP_FORCE_URL` - Pokud je `true` je nutné zadat i `APP_URL`. Pokud návštěvník přijde na jinou URL, je přesměrován.
     - Příklad: `APP_URL=http://www.czechitas.cz` uživatel přijde na `http://czechitas.cz` -> je přesměrován na adresu s `www`
     - Neřeší HTTP/HTTPS
 - `HTTPS_ENABLE` - pokud je HTTPS povoleno, je automaticky každý request na HTTP přesměrován na HTTPS s kódem 301
     - Volitelně lze zapnout také HSTS, více na [kutac.cz/pocitace-a-internety/https-nestaci-jak-na-hsts-a-hpkp](https://www.kutac.cz/pocitace-a-internety/https-nestaci-jak-na-hsts-a-hpkp)
-- `DB_*` - přístupové údaje k DB
-- `APIARY_URL` - touto proměnnou je možné nastavit URL na dokumentaci k API. Pokud je nastavená, na URL aplikace `/api` bude přesměrování na tuto URL.
+- `LOG_CHANNEL` - defaultně ukládá logy do storage/logs (tyto lze sledovat po přihlášení adminem/master adminem na url `/logs`). Lze změnit podle souboru `config/logging.php`. Na Heroku může být výhodné `stderr`.
+- `MAIL_MAILER` - viz [Mail configuration](https://laravel.com/docs/10.x/mail#configuration), defaultně array, tedy zahazuje emaily.
+- `SESSION_DRIVER` - defaultně `file`, tedy pouze lokálně. Heroku při restartu Dyna ztratí soubory. Lze nastavit na `database`, případně Redis atd, když je nastaven.
 
+#### Více aplikací se stejnou DB nebo souborovým úložištěm
+
+Pokud více aplikací sdílí stejnou DB (ne DB server, ale opravdu DB) nebo úložiště (S3 apod), mohou si šahat na data.
+
+To je možné vyřešit pomocí proměnné `OVERRIDE_APP_NAME` a nastavit ji podle názvu týmu například.<br>
+Na základě této hodnoty se pak vytvoří prefix pro název DB tabulky a složka pro ukládání souborů (obrázků a emailů).<br>
+Prvně je ale odebráno slovo `czechitas` a `app`.
+
+Vše lze ještě upravit těmito ENV proměnnými:
+
+- `DISABLE_PREFIXES` nastavením na `true` se zakáže přidávání prefixu do názvů tabulek
+- `DISABLE_SUBFOLDERS` nastavením na `true` se soubory budou ukládat do rootu úložiště, ne do podsložky s názvem týmu
 
 ## Deployment
 
@@ -62,7 +90,7 @@ Deploy do služby Heroku a pak už jen profitovat z výsledku 🎉🎉
     1. Nastav Buildpacks. Musí být v tomto pořadí
         1. heroku/nodejs
         2. heroku/php
-    1. Naconfiguruj VARS 
+    1. Naconfiguruj VARS (Tyto jsou povinné, podívej se výše jaké lze ještě nastavit)
         * `APP_KEY` ^^ viz .env
         * `DB_DATABASE` - použij db name z `CLEARDB_DATABASE_URL`
         * `DB_HOST` - použij host z `CLEARDB_DATABASE_URL`
@@ -92,7 +120,7 @@ V tomto bodu jste ready-to-deploy. V záložce Deploy stačí v sekci Manual dep
 
 ### Více aplikací
 
-Pokud máte více týmů a chcete více aplikací pro každý tým, tak je potřeba applikace dát do tzn. pipeliny. Pokud chceš deployvat různé verze, tak pro každý tým musíš vytvořit samostatnou branch. Pokud Ti to je jedno, stačí Ti `master` branch.
+Pokud máte více týmů a chcete více aplikací pro každý tým, tak je potřeba aplikace dát do tzn. pipeliny. Pokud chceš deployvat různé verze, tak pro každý tým musíš vytvořit samostatnou branch. Pokud Ti to je jedno, stačí Ti `master` branch.
 
 > Pro zjednodušení je možné spustit `cd .heroku_builder` a `php build.php`. Ten vytvoří skripty pro spuštění, které vytvoří Heroku aplikace.
 > Konfigurace je pomocí souboru config.php a vygenerovaných skriptů využívají [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
@@ -103,7 +131,7 @@ Pokud máte více týmů a chcete více aplikací pro každý tým, tak je potř
 1. Poté je Tvá applikace vidět ve sloupečku STAGING. 
 1. Tvá aplikace je aktivní a ve sloupci STAGING lze přidat novou aplikaci.
 1. Pro ni opět nastav stejné VARS a addons (Cleardb) jak v krocích pro deploy jedné aplikace.
-    * Přidej další VAR - `OVERRIDE_APP_NAME` a pojmenuj ji např. po názvu týmu. Jde o prefix do DB, pokud sdílí všechny aplikace stejnou DB, ať si appky "nešahají na vzájemně na data"
+    * Pokud appky sdílí DB a/nebo úložiště, podívej se na sekci *Více aplikací se stejnou DB nebo souborovým úložištěm*
 1. Vyber si, z jaké branche by se měla deployvat. 
 1. Opakuj tyto kroky pro každý tým co máš.
 1. `Optional` _- můžeš nastavit Review apps_
