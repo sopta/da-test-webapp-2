@@ -6,9 +6,9 @@ namespace CzechitasApp\Services;
 
 class LogViewer
 {
-    private string $file;
+    private string $file = '';
 
-    private string $folder;
+    private string $folder = '';
 
     private string $storage_path;
 
