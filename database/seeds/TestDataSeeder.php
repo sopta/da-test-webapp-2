@@ -29,7 +29,7 @@ class TestDataSeeder extends Seeder
         $admin = User::where(['role' => 'admin'])->orderBy('created_at')->first();
 
         if ($master == null || $admin == null) {
-           throw new \Exception("Cannot find user with 'master' and 'admin' role");
+            throw new \Exception("Cannot find user with 'master' and 'admin' role");
         }
 
         $parent1 = User::create([
@@ -119,11 +119,12 @@ class TestDataSeeder extends Seeder
         ]);
 
         // Terms
+        $pastStart = Carbon::now()->subMonths(1)->next(Carbon::MONDAY);
         $termInPast = Term::create([
             'category_id' => $categoryJS->id,
-            'start' => new Carbon('2021-01-11'),
-            'end' => new Carbon('2021-01-15'),
-            'opening' => new Carbon('2020-12-01T15:00:00+01:00'),
+            'start' => new $pastStart,
+            'end' => $pastStart->clone()->next(Carbon::FRIDAY),
+            'opening' => $pastStart->clone()->subMonths(3),
             'price' => 2500,
         ]);
 
