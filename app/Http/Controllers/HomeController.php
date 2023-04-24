@@ -61,12 +61,12 @@ class HomeController extends Controller
 
     public function apiary(): RedirectResponse
     {
-        $url = config('czechitas.apiary');
+        $url = \config('czechitas.apiary');
 
         if (empty($url)) {
             \abort(404, 'undefined API path');
         }
 
-        return redirect($url);
+        return \redirect($url);
     }
 }

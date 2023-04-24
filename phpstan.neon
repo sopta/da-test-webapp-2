@@ -26,6 +26,9 @@ parameters:
 		-
 			message: '#Access to an undefined property CzechitasApp\\Models\\Category::\$imagePath#'
 			path: app/Http/Controllers/Api/CategoryController.php
+		-
+			message: '#Parameter \#(1|2) \$adapter of class .* constructor expects League\\Flysystem\\FilesystemAdapter#'
+			path: app/Providers/AppServiceProvider.php
 
 		# Remove in future
 		- '#Access to an undefined property Illuminate\\Routing\\Route::\$[a-z0-9]+#i'

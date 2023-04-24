@@ -76,6 +76,9 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         Storage::extend('dropbox', static function ($app, $config) {
+            if (!\class_exists(DropboxAdapter::class) || !\class_exists(Client::class)) {
+                throw new \Exception('dropbox is not installed');
+            }
             $adapter = new DropboxAdapter(new Client(
                 $config['authorization_token'],
             ));
