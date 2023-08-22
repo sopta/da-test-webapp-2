@@ -11,8 +11,8 @@ Aplikace využívá PHP framework [Laravel](https://laravel.com/docs/), [Bootstr
 - PHP 8.1+, rozšíření PDO, a GD nebo Imagick
 - Composer 2 https://getcomposer.org/download/
 - MySQL - netestováno s jinou DB, ale možná bude fungovat
-- NodeJS 16+ - pro build assetů (JS/CSS)
-- npm 8.2+
+- NodeJS 18+ - pro build assetů (JS/CSS)
+- npm 9+
 
 ## Instalace
 
