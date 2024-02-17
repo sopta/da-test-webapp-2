@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SunApp\Services;
+namespace CzechitasApp\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Utils;
