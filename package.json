@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "engines": {
-    "npm": "^9",
-    "node": "^18"
+    "npm": "^10",
+    "node": "^20"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack --mode=development --watch",
