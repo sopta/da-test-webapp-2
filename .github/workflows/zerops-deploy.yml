@@ -1,0 +1,70 @@
+name: Deploy to Zerops
+
+on:
+  push:
+    branches:
+      - master
+      - 'team/**'  # Matches any branch starting with "team/"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: List All Environments in the Repository
+        run: |
+          echo "🔹 Fetching all environments in the repository..."
+          gh api repos/${{ github.repository }}/environments | jq '.environments[].name'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_DEPLOY_PAT }}
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Determine Environment and Print Info
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}  # Extract branch name
+
+          if [[ "$BRANCH_NAME" == "master" ]]; then
+            ENVIRONMENT="datmj25-main"
+          elif [[ "$BRANCH_NAME" == team/* ]]; then
+            TEAM_NAME=${BRANCH_NAME#team/}  # Removes "team/"
+            ENVIRONMENT="datmj25-$TEAM_NAME"
+          else
+            echo "❌ Unknown branch pattern: $BRANCH_NAME"
+            exit 1
+          fi
+
+          echo "🔹 Branch Name: $BRANCH_NAME"
+          echo "🔹 Expected Environment: $ENVIRONMENT"
+
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
+
+      - name: Fetch SERVICE_ID from GitHub Environment Variables
+        run: |
+          echo "🔹 Fetching SERVICE_ID from environment: $ENVIRONMENT"
+          echo "🔹 API Call: gh api repos/${{ github.repository }}/environments/$ENVIRONMENT/variables"
+
+          echo "🔹 Full API Response:"
+          gh api repos/${{ github.repository }}/environments/$ENVIRONMENT/variables | jq '.'
+
+          echo "🔹 Extracting SERVICE_ID..."
+          SERVICE_ID=$(gh api repos/${{ github.repository }}/environments/$ENVIRONMENT/variables --jq '.variables[] | select(.name=="SERVICE_ID") | .value')
+
+          if [[ -z "$SERVICE_ID" ]]; then
+            echo "❌ ERROR: SERVICE_ID not found in environment $ENVIRONMENT"
+            echo "❌ Ensure SERVICE_ID is set under 'Settings → Environments → $ENVIRONMENT → Environment Variables'"
+            exit 1
+          fi
+
+          echo "SERVICE_ID=$SERVICE_ID" >> $GITHUB_ENV
+          echo "✅ SERVICE_ID Retrieved: $SERVICE_ID"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_DEPLOY_PAT }}
+
+      - name: Deploy with Zerops
+        uses: zeropsio/actions@main
+        with:
+          access-token: ${{ secrets.ZEROPS_TOKEN }}
+          service-id: ${{ env.SERVICE_ID }}

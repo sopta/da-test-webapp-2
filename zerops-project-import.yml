@@ -1,0 +1,52 @@
+#yamlPreprocessor=on
+project:
+  name: datmj25-sprint-app
+  description: Sprintova aplikace pro DA Test jaro 2025
+  tags:
+    - datmj25
+
+services:
+  - hostname: app
+    type: php-apache@8.1
+    enableSubdomainAccess: true
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: bugbusters
+    type: php-apache@8.1
+    enableSubdomainAccess: true
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: qamazons
+    type: php-apache@8.1
+    enableSubdomainAccess: true
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: macandcheese
+    type: php-apache@8.1
+    enableSubdomainAccess: true
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: testcats
+    type: php-apache@8.1
+    enableSubdomainAccess: true
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: testqueens
+    type: php-apache@8.1
+    enableSubdomainAccess: true
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: db
+    type: mariadb@10.6
+    mode: NON_HA
+
+  - hostname: adminer
+    type: php-apache@8.3
+    buildFromGit: https://github.com/zeropsio/recipe-adminer@main
+    enableSubdomainAccess: true
