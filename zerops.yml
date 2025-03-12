@@ -1,0 +1,109 @@
+zerops:
+  - setup: base
+    build:
+      base:
+        - php@8.1
+        - nodejs@18
+      os: ubuntu
+      buildCommands:
+        - composer install --ignore-platform-reqs --optimize-autoloader --prefer-dist --no-dev --no-ansi --no-interaction
+        - npm install
+        - npm run build
+      deployFiles: ./
+      cache:
+        - vendor
+        - composer.lock
+        - node_modules
+        - package-lock.json
+    deploy:
+      readinessCheck:
+        httpGet:
+          port: 80
+          path: /api/up
+    run:
+      base: php-apache@8.1
+      os: ubuntu
+      documentRoot: public
+      envVariables:
+        APP_NAME: "CzechitasApp"
+        APP_DEBUG: true
+        APP_ENV: production
+        APP_URL: ${zeropsSubdomain}
+        APP_FORCE_URL: false
+        HTTPS_ENABLE: false
+
+        DB_CONNECTION: mysql
+        DB_HOST: db
+        DB_PORT: 3306
+        DB_DATABASE: db
+        DB_USERNAME: ${db_user}
+        DB_PASSWORD: ${db_password}
+
+        MAIL_MAILER: array
+        MAIL_FROM_ADDRESS: "info@czechitas-app.cz"
+        MAIL_FROM_NAME: "Czechitas"
+        MAIL_SUBJECT_ADD: "Czechitas"
+        MAIL_REPLY_TO_ADDRESS: "info@czechitas-app.cz"
+        MAIL_REPLY_TO_NAME: "Czechitas"
+
+        LOG_CHANNEL: syslog
+        LOG_LEVEL: debug
+        LOG_STACK: single
+
+        CACHE_DRIVER: file
+        CACHE_STORE: file
+        QUEUE_CONNECTION: sync
+
+        SESSION_DRIVER: file
+        SESSION_ENCRYPT: false
+        SESSION_PATH: /
+        SESSION_LIFETIME: 120
+
+      initCommands:
+        - sudo a2enmod headers
+        - sudo systemctl restart apache2
+        - php artisan view:cache
+        - php artisan config:cache
+        - php artisan route:cache
+        - php artisan migrate --isolated --force
+        - php artisan optimize
+      healthCheck:
+        httpGet:
+          port: 80
+          path: /api/up
+
+  - setup: app
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: main
+
+  - setup: bugbusters
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: bugbusters
+
+  - setup: qamazons
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: qamazons
+
+  - setup: macandcheese
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: macandcheese
+
+  - setup: testcats
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: testcats
+
+  - setup: testqueens
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: testqueens
