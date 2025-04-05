@@ -8,28 +8,23 @@ use CzechitasApp\Http\Controllers\Controller;
 use CzechitasApp\Models\User;
 use CzechitasApp\Rules\EmailRule;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\View\View;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
-    /**
-     *--------------------------------------------------------------------------
-     * Register Controller
-     *--------------------------------------------------------------------------
-     *
-     * This controller handles the registration of new users as well as their
-     * validation and creation. By default this controller uses a trait to
-     * provide this functionality without requiring any additional code.
-     */
-    use RegistersUsers;
-
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function showRegistrationForm(): View
+    {
+        return view('auth.register');
     }
 
     /**
@@ -65,21 +60,20 @@ class RegisterController extends Controller
     protected function create(array $data): User
     {
         return User::create([
-            'name' => $data['name'],
+            'name' => substr($data['name'], 0, 6),
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
     }
 
-    /**
-     * The user has been registered.
-     *
-     * @param         User $user
-     * @return        mixed
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
-     */
-    protected function registered(Request $request, $user)
+    public function register(Request $request)
     {
-        return \redirect()->intended($this->redirectPath());
+        $this->validator($request->all())->validate();
+
+        $user = $this->create($request->all());
+
+        event(new Registered($user)); // Optional
+
+        return redirect()->route('login')->with('status', 'Account created. Please log in.');
     }
 }
