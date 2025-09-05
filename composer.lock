@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a58b693de0ebc2fdd14edabf80710581",
+    "content-hash": "15cf0292e77b69fb9f12da1191641f95",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -157,28 +157,28 @@
         },
         {
             "name": "bacon/bacon-qr-code",
-            "version": "dev-add-gd-backend",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/arxeiss/BaconQrCode.git",
-                "reference": "650e10121f4d8707ecdc5984b042cae7731e388a"
+                "url": "https://github.com/Bacon/BaconQrCode.git",
+                "reference": "f9cc1f52b5a463062251d666761178dbdb6b544f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/arxeiss/BaconQrCode/zipball/650e10121f4d8707ecdc5984b042cae7731e388a",
-                "reference": "650e10121f4d8707ecdc5984b042cae7731e388a",
+                "url": "https://api.github.com/repos/Bacon/BaconQrCode/zipball/f9cc1f52b5a463062251d666761178dbdb6b544f",
+                "reference": "f9cc1f52b5a463062251d666761178dbdb6b544f",
                 "shasum": ""
             },
             "require": {
                 "dasprid/enum": "^1.0.3",
                 "ext-iconv": "*",
-                "php": "^7.1 || ^8.0"
+                "php": "^8.1"
             },
             "require-dev": {
-                "phly/keep-a-changelog": "^2.1",
-                "phpunit/phpunit": "^7 | ^8 | ^9",
-                "spatie/phpunit-snapshot-assertions": "^4.2.9",
-                "squizlabs/php_codesniffer": "^3.4"
+                "phly/keep-a-changelog": "^2.12",
+                "phpunit/phpunit": "^10.5.11 || 11.0.4",
+                "spatie/phpunit-snapshot-assertions": "^5.1.5",
+                "squizlabs/php_codesniffer": "^3.9"
             },
             "suggest": {
                 "ext-imagick": "to generate QR code images"
@@ -189,12 +189,7 @@
                     "BaconQrCode\\": "src/"
                 }
             },
-            "archive": {
-                "exclude": [
-                    "/test",
-                    "/phpunit.xml.dist"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-2-Clause"
             ],
@@ -209,9 +204,10 @@
             "description": "BaconQrCode is a QR code generator for PHP.",
             "homepage": "https://github.com/Bacon/BaconQrCode",
             "support": {
-                "source": "https://github.com/arxeiss/BaconQrCode/tree/add-gd-backend"
+                "issues": "https://github.com/Bacon/BaconQrCode/issues",
+                "source": "https://github.com/Bacon/BaconQrCode/tree/v3.0.1"
             },
-            "time": "2023-07-25T18:38:42+00:00"
+            "time": "2024-10-01T13:55:55+00:00"
         },
         {
             "name": "brick/math",
@@ -10429,9 +10425,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "bacon/bacon-qr-code": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

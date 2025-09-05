@@ -1,44 +1,38 @@
 #yamlPreprocessor=on
 project:
-  name: datmj25-sprint-app
-  description: Sprintova aplikace pro DA Test jaro 2025
+  name: datbp25-sprint-app
+  description: Sprintova aplikace pro DA Test Brno podzim 2025
   tags:
-    - datmj25
+    - dat25
 
 services:
-  - hostname: app
+  - hostname: lecturers
     type: php-apache@8.1
-    enableSubdomainAccess: true
+    enableSubdomainAccess: false
     envSecrets:
       APP_KEY: <@generateRandomString(<32>)>
 
-  - hostname: bugbusters
+  - hostname: commitky
     type: php-apache@8.1
-    enableSubdomainAccess: true
+    enableSubdomainAccess: false
     envSecrets:
       APP_KEY: <@generateRandomString(<32>)>
 
-  - hostname: qamazons
+  - hostname: threeversusone
     type: php-apache@8.1
-    enableSubdomainAccess: true
+    enableSubdomainAccess: false
     envSecrets:
       APP_KEY: <@generateRandomString(<32>)>
 
-  - hostname: macandcheese
+  - hostname: veverkyexotky
     type: php-apache@8.1
-    enableSubdomainAccess: true
+    enableSubdomainAccess: false
     envSecrets:
       APP_KEY: <@generateRandomString(<32>)>
 
-  - hostname: testcats
+  - hostname: ikeitas
     type: php-apache@8.1
-    enableSubdomainAccess: true
-    envSecrets:
-      APP_KEY: <@generateRandomString(<32>)>
-
-  - hostname: testqueens
-    type: php-apache@8.1
-    enableSubdomainAccess: true
+    enableSubdomainAccess: false
     envSecrets:
       APP_KEY: <@generateRandomString(<32>)>
 
@@ -49,4 +43,4 @@ services:
   - hostname: adminer
     type: php-apache@8.3
     buildFromGit: https://github.com/zeropsio/recipe-adminer@main
-    enableSubdomainAccess: true
+    enableSubdomainAccess: false

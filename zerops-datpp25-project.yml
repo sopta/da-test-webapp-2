@@ -1,0 +1,64 @@
+#yamlPreprocessor=on
+project:
+  name: datpp25-sprint-app
+  description: Sprintova aplikace pro DA Test Praha podzim 2025
+  tags:
+    - dat25
+
+services:
+  - hostname: lecturers
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: theitcredibles
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: fiveinit
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: errorfive
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: restarterky
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: bugpatrol
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: testadivas
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: partynotfound
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: db
+    type: mariadb@10.6
+    mode: NON_HA
+
+  - hostname: adminer
+    type: php-apache@8.3
+    buildFromGit: https://github.com/zeropsio/recipe-adminer@main
+    enableSubdomainAccess: false
