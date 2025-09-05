@@ -3,7 +3,7 @@ name: Deploy to Zerops
 on:
   push:
     branches:
-      - master
+      - datp25-main
       - 'team/**'  # Matches any branch starting with "team/"
 
 jobs:
@@ -25,11 +25,11 @@ jobs:
         run: |
           BRANCH_NAME=${GITHUB_REF#refs/heads/}  # Extract branch name
 
-          if [[ "$BRANCH_NAME" == "master" ]]; then
-            ENVIRONMENT="datmj25-main"
+          if [[ "$BRANCH_NAME" == "datp25-main" ]]; then
+            ENVIRONMENT="datp25-main"
           elif [[ "$BRANCH_NAME" == team/* ]]; then
             TEAM_NAME=${BRANCH_NAME#team/}  # Removes "team/"
-            ENVIRONMENT="datmj25-$TEAM_NAME"
+            ENVIRONMENT="$TEAM_NAME"
           else
             echo "❌ Unknown branch pattern: $BRANCH_NAME"
             exit 1

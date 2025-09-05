@@ -72,38 +72,74 @@ zerops:
           port: 80
           path: /api/up
 
-  - setup: app
+  - setup: lecturers
     extends: base
     run:
       envVariables:
-        OVERRIDE_APP_NAME: main
+        OVERRIDE_APP_NAME: lecturers
 
-  - setup: bugbusters
+  - setup: commitky
     extends: base
     run:
       envVariables:
-        OVERRIDE_APP_NAME: bugbusters
+        OVERRIDE_APP_NAME: commitky
 
-  - setup: qamazons
+  - setup: threeversusone
     extends: base
     run:
       envVariables:
-        OVERRIDE_APP_NAME: qamazons
+        OVERRIDE_APP_NAME: threeversusone
 
-  - setup: macandcheese
+  - setup: veverkyexotky
     extends: base
     run:
       envVariables:
-        OVERRIDE_APP_NAME: macandcheese
+        OVERRIDE_APP_NAME: veverkyexotky
 
-  - setup: testcats
+  - setup: ikeitas
     extends: base
     run:
       envVariables:
-        OVERRIDE_APP_NAME: testcats
+        OVERRIDE_APP_NAME: ikeitas
 
-  - setup: testqueens
+  - setup: theitcredibles
     extends: base
     run:
       envVariables:
-        OVERRIDE_APP_NAME: testqueens
+        OVERRIDE_APP_NAME: theitcredibles
+
+  - setup: fiveinit
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: 5init
+
+  - setup: errorfive
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: error5
+
+  - setup: restarterky
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: restarterky
+
+  - setup: bugpatrol
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: bugpatrol
+
+  - setup: testadivas
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: testadivas
+
+  - setup: partynotfound
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: partynotfound
