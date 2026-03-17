@@ -3,7 +3,6 @@ name: Deploy to Zerops
 on:
   push:
     branches:
-      - master
       - 'team/**'  # Matches any branch starting with "team/"
 
 jobs:
@@ -19,17 +18,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_DEPLOY_PAT }}
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Determine Environment and Print Info
         run: |
           BRANCH_NAME=${GITHUB_REF#refs/heads/}  # Extract branch name
 
-          if [[ "$BRANCH_NAME" == "master" ]]; then
-            ENVIRONMENT="datmj25-main"
-          elif [[ "$BRANCH_NAME" == team/* ]]; then
+          if [[ "$BRANCH_NAME" == team/* ]]; then
             TEAM_NAME=${BRANCH_NAME#team/}  # Removes "team/"
-            ENVIRONMENT="datmj25-$TEAM_NAME"
+            ENVIRONMENT="$TEAM_NAME"
           else
             echo "❌ Unknown branch pattern: $BRANCH_NAME"
             exit 1
