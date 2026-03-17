@@ -12,6 +12,36 @@ services:
     envSecrets:
       APP_KEY: <@generateRandomString(<32>)>
 
+  - hostname: debugdivas
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: rait
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: agileangels
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: suverezity
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: qaffeine
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
   - hostname: db
     type: mariadb@10.6
     mode: NON_HA
