@@ -72,38 +72,8 @@ zerops:
           port: 80
           path: /api/up
 
-  - setup: app
+  - setup: lecturers
     extends: base
     run:
       envVariables:
-        OVERRIDE_APP_NAME: main
-
-  - setup: bugbusters
-    extends: base
-    run:
-      envVariables:
-        OVERRIDE_APP_NAME: bugbusters
-
-  - setup: qamazons
-    extends: base
-    run:
-      envVariables:
-        OVERRIDE_APP_NAME: qamazons
-
-  - setup: macandcheese
-    extends: base
-    run:
-      envVariables:
-        OVERRIDE_APP_NAME: macandcheese
-
-  - setup: testcats
-    extends: base
-    run:
-      envVariables:
-        OVERRIDE_APP_NAME: testcats
-
-  - setup: testqueens
-    extends: base
-    run:
-      envVariables:
-        OVERRIDE_APP_NAME: testqueens
+        OVERRIDE_APP_NAME: lecturers

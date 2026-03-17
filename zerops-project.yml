@@ -1,0 +1,22 @@
+#yamlPreprocessor=on
+project:
+  name: datcj26-sprint-app
+  description: Sprintova aplikace pro DA Test Cesko jaro 2026
+  tags:
+    - datcj26
+
+services:
+  - hostname: lecturers
+    type: php-apache@8.1
+    enableSubdomainAccess: false
+    envSecrets:
+      APP_KEY: <@generateRandomString(<32>)>
+
+  - hostname: db
+    type: mariadb@10.6
+    mode: NON_HA
+
+  - hostname: adminer
+    type: php-apache@8.3
+    buildFromGit: https://github.com/zeropsio/recipe-adminer@main
+    enableSubdomainAccess: false
