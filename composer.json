@@ -4,18 +4,12 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/arxeiss/BaconQrCode"
-        }
-    ],
     "require": {
         "php": "^8.1",
         "ext-gd": "*",
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
-        "bacon/bacon-qr-code": "dev-add-gd-backend#650e10121f4d8707ecdc5984b042cae7731e388a",
+        "bacon/bacon-qr-code": "3.0.1",
         "erusev/parsedown": "^1.7",
         "granam/czech-vocative": "2.2.0",
         "guzzlehttp/guzzle": "7.8.1",
