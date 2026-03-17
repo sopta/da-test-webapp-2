@@ -77,3 +77,33 @@ zerops:
     run:
       envVariables:
         OVERRIDE_APP_NAME: lecturers
+
+  - setup: debugdivas
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: debugdivas
+
+  - setup: rait
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: rait
+
+  - setup: agileangels
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: agileangels
+
+  - setup: suverezity
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: suverezity
+
+  - setup: qaffeine
+    extends: base
+    run:
+      envVariables:
+        OVERRIDE_APP_NAME: qaffeine
