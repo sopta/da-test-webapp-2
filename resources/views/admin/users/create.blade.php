@@ -85,7 +85,7 @@
                         <tr>
                             <td></td>
                             <td>
-                                <input type="submit" id="submit-button" class="btn btn-primary" value="@lang('users.form.submit_create')">
+                                <input type="submit" class="btn btn-primary" value="@lang('users.form.submit_create')">
                             </td>
                         </tr>
 
@@ -95,24 +95,4 @@
             </div>
         </div>
     </div>
-
-    @section('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const submitButton = document.getElementById('submit-button');
-                const roleRadios = document.querySelectorAll('input[name="role"]');
-
-                function toggleSubmitButton() {
-                    const selectedRole = document.querySelector('input[name="role"]:checked');
-                    submitButton.disabled = selectedRole && selectedRole.value === 'parent';
-                }
-
-                toggleSubmitButton();
-
-                roleRadios.forEach(radio => {
-                    radio.addEventListener('change', toggleSubmitButton);
-                });
-            });
-        </script>
-    @endsection
 @endsection
