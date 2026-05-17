@@ -85,8 +85,7 @@ class StudentPolicy
      */
     public function addPayment(User $user, Student $student): bool
     {
-        return $user->isAdminOrMore();
-        // return $user->isRoleMaster();
+        return $user->isRoleMaster();
     }
 
     /**
