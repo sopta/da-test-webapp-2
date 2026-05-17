@@ -36,7 +36,7 @@ class CreateOrderRequest extends BaseFormRequest
         ];
 
         $typeSpecificRules = [
-            'students'        => 'required|integer|min:0',
+            'students'        => 'required|integer|min:1',
             'age'             => 'required|string|max:30',
             'adults'          => 'required|integer|min:1',
         ];
