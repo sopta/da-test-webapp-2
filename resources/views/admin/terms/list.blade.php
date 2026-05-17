@@ -21,12 +21,6 @@
                 render: CzechitasApp.datatables.getRenderer('flag', $(".flag_change_template")),
             },
             {
-                targets: 3,
-                render: function (data, type, row, meta) {
-                  return data+5;
-                }
-            },
-            {
                 targets: 4,
                 data: "id",
                 orderable: false,
